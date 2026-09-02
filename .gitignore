@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# ReShade and runtime generated logs / configs
+# ReShade and runtime generated logs / configs / DLL binaries (auto-downloaded via install.py)
+bin/runtime/*.dll
 bin/runtime/*.log
 bin/runtime/*.cfg
 bin/runtime/*.ini

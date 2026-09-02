@@ -240,6 +240,7 @@ class DLSS5Manager:
     def __init__(self, custom_runtime_dir: Optional[str] = None):
         self.runtime_dir = find_runtime_dir(custom_runtime_dir)
         self.session: Optional[DLSS5WorkerSession] = None
+        self._last_config: dict = {}
 
     def calculate_dimensions(self, width: int, height: int, scale_mode: str) -> tuple[int, int]:
         """Calculates even-integer output resolution according to scale mode."""
@@ -251,6 +252,68 @@ class DLSS5Manager:
         out_w = out_w if out_w % 2 == 0 else out_w + 1
         out_h = out_h if out_h % 2 == 0 else out_h + 1
         return out_w, out_h
+
+    def _get_or_create_session(
+        self,
+        in_w: int,
+        in_h: int,
+        out_w: int,
+        out_h: int,
+        scale_mode: str,
+        model_preset: str,
+        nr_intensity: float,
+        tone_strength: float,
+        struct_strength: float,
+        skin_strength: float,
+        nr_style: str,
+        auto_mask: bool,
+    ) -> Optional[DLSS5WorkerSession]:
+        config = {
+            "in_w": in_w,
+            "in_h": in_h,
+            "out_w": out_w,
+            "out_h": out_h,
+            "scale_mode": scale_mode,
+            "model_preset": model_preset,
+            "nr_intensity": nr_intensity,
+            "tone_strength": tone_strength,
+            "struct_strength": struct_strength,
+            "skin_strength": skin_strength,
+            "nr_style": nr_style,
+            "auto_mask": auto_mask,
+        }
+
+        # Reuse existing warm session if process is alive and config is identical
+        if self.session is not None and self.session.is_alive() and self._last_config == config:
+            return self.session
+
+        # Start new or reconfigured session
+        session = DLSS5WorkerSession(self.runtime_dir)
+        started = session.start_worker(
+            input_w=in_w,
+            input_h=in_h,
+            output_w=out_w,
+            output_h=out_h,
+            scale_mode=scale_mode,
+            model_preset=model_preset,
+            nr_intensity=nr_intensity,
+            tone_strength=tone_strength,
+            struct_strength=struct_strength,
+            skin_strength=skin_strength,
+            nr_style=nr_style,
+            auto_mask=auto_mask,
+        )
+
+        if not started:
+            return None
+
+        # Clean up old session
+        if self.session is not None and self.session != session:
+            self.session.stop_worker()
+
+        self.session = session
+        self._last_config = config
+        return self.session
 
     def enhance_pil_image(
         self,
@@ -298,13 +361,12 @@ class DLSS5Manager:
         out_w, out_h = self.calculate_dimensions(in_w, in_h, scale_mode)
         arr_in = np.array(img_rgba)
 
-        # 5. Start or reuse worker session
-        session = DLSS5WorkerSession(self.runtime_dir)
-        started = session.start_worker(
-            input_w=in_w,
-            input_h=in_h,
-            output_w=out_w,
-            output_h=out_h,
+        # 5. Get or start warm worker session
+        session = self._get_or_create_session(
+            in_w=in_w,
+            in_h=in_h,
+            out_w=out_w,
+            out_h=out_h,
             scale_mode=scale_mode,
             model_preset=model_preset,
             nr_intensity=nr_intensity,
@@ -315,7 +377,7 @@ class DLSS5Manager:
             auto_mask=auto_mask,
         )
 
-        if not started:
+        if session is None:
             logger.warning("DLSS 5 worker failed to start. Falling back.")
             return self._fallback_upscale(image, scale_mode)
 
@@ -331,7 +393,6 @@ class DLSS5Manager:
             return result_img
 
         finally:
-            session.stop_worker()
             restore_vram_state()
 
     def enhance_frame_sequence(

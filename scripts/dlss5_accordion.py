@@ -199,8 +199,7 @@ class DLSS5IntegratedAccordion(scripts.Script):
     def postprocess_batch_list(
         self,
         p: StableDiffusionProcessing,
-        batch_params: scripts.PostprocessBatchListArgs,
-        batch_number: int,
+        pp: scripts.PostprocessBatchListArgs,
         enable: bool,
         scale_mode: str,
         model_preset: str,
@@ -210,23 +209,24 @@ class DLSS5IntegratedAccordion(scripts.Script):
         struct_strength: float,
         skin_strength: float,
         auto_mask: bool,
+        **kwargs,
     ):
         """
         Handles Forge Neo native video models (SVD, Wan2.1, CogVideoX, AnimateDiff)
         by streaming temporal consecutive frames through DIS Optical Flow + DLSS 5 worker.
         """
-        if not enable or not getattr(p, "is_video", False) and not getattr(p, "_is_video", False):
+        if not enable or (not getattr(p, "is_video", False) and not getattr(p, "_is_video", False)):
             return
 
-        if not batch_params.images:
+        if not pp.images:
             return
 
         try:
             import numpy as np
 
-            logger.info(f"Processing {len(batch_params.images)} video frames with DLSS 5 Temporal Pipeline...")
+            logger.info(f"Processing {len(pp.images)} video frames with DLSS 5 Temporal Pipeline...")
             raw_frames = []
-            for img in batch_params.images:
+            for img in pp.images:
                 if isinstance(img, torch.Tensor):
                     arr = img.mul(255.0).clamp_(0.0, 255.0).to(torch.uint8).permute(1, 2, 0).cpu().numpy()
                 elif isinstance(img, Image.Image):
@@ -251,7 +251,7 @@ class DLSS5IntegratedAccordion(scripts.Script):
             new_images = []
             for ef in enhanced_frames:
                 new_images.append(Image.fromarray(ef))
-            batch_params.images = new_images
+            pp.images = new_images
 
         except Exception as e:
             logger.error(f"Error during DLSS 5 video batch processing: {e}", exc_info=True)

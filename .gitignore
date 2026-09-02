@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ReShade and runtime generated logs / configs
+bin/runtime/*.log
+bin/runtime/*.cfg
+bin/runtime/*.ini
+bin/runtime/*.zip
+
+# Git and OS
+.DS_Store
+Thumbs.db
+*.tmp

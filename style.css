@@ -1,0 +1,9 @@
+/* DLSS 5 Neural Enhancer Integrated Accordion Styles */
+.input-accordion[id*="dlss5"] {
+    border-left: 3px solid #76b900 !important; /* NVIDIA RTX Green Accent */
+    transition: all 0.2s ease-in-out;
+}
+
+.input-accordion[id*="dlss5"]:hover {
+    box-shadow: 0 0 10px rgba(118, 185, 0, 0.2);
+}

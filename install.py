@@ -26,8 +26,8 @@ required_dlls = [
     "nvngx_dlss.dll",
 ]
 
-# Primary download link (Streamline / DLSS-NR package)
-PRIMARY_RUNTIME_URL = "https://cdn.discordapp.com/attachments/1545049227321810974/1545050050609025114/DLSS310.8.0-Streamline2.13.zip?ex=6a9abb7d&is=6a9969fd&hm=fb496698171bf27731eea4179c4543eb8970f0cb3063ced0a4b0221a9ab2bd53&"
+# Permanent GitHub Release download link (Streamline 2.13 / DLSS 3.10 runtime package)
+PRIMARY_RUNTIME_URL = "https://github.com/zeydsama/sd-forge-dlss5/releases/download/v1.0.0/DLSS310.8.0-Streamline2.13.zip"
 FALLBACK_RUNTIME_URL = "https://github.com/Merserk/dlss5-visual-enhancer/releases/download/3.0/DLSS.5.Visual.Enhancer.v3.0.zip"
 
 missing = [f for f in required_dlls if not (runtime_dir / f).exists()]

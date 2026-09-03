@@ -8,7 +8,7 @@
 
 ## 🖼️ Visual Comparison Showcase
 
-### Before / After Split Slider (Krea2 Turbo Seed 99 @ 1008x1344)
+### Sample 1: Cyberpunk Portrait (Krea2 Turbo Seed 99 @ 1008x1344)
 Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neural Enhancer Enabled** (`DLAA 1.0x`, `NR Style: Default`, `Intensity: 1.0`, `Local Tone: 1.0`, `Structure: 1.0`, `Skin: 1.0`).
 
 <div align="center">
@@ -18,11 +18,32 @@ Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neura
 *Notice the enhanced high-frequency structural clarity, sharper eye and skin textures, refined hair strands, and crisp neon light reflections without halos or over-sharpening artifacts.*
 
 <details>
-<summary><b>🔍 View Full Side-by-Side Comparison</b></summary>
+<summary><b>🔍 View Full Side-by-Side Comparison (Sample 1)</b></summary>
 <br>
 
 <div align="center">
   <img src="assets/dlss5_side_by_side.png" alt="DLSS 5 Side by Side Full Comparison" width="1000">
+</div>
+
+</details>
+
+<br>
+
+### Sample 2: Full Body Candid iPhone 13 Snapshot (Krea2 Turbo Seed 99 @ 1008x1344)
+Comparison featuring full-body framing with natural skin pores, defined facial contours, individual hair separation, and bright shadow detail reconstruction.
+
+<div align="center">
+  <img src="assets/dlss5_split_comparison_candid.png" alt="DLSS 5 Candid Visual Comparison Split Slider" width="850">
+</div>
+
+*Notice the realistic skin pore retention, distinct hair strand separation, enhanced edge resolution, and shadow micro-contrast.*
+
+<details>
+<summary><b>🔍 View Full Side-by-Side Comparison (Sample 2)</b></summary>
+<br>
+
+<div align="center">
+  <img src="assets/dlss5_side_by_side_candid.png" alt="DLSS 5 Candid Side by Side Full Comparison" width="1000">
 </div>
 
 </details>

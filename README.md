@@ -29,8 +29,8 @@ Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neura
 
 <br>
 
-### Sample 2: Full Body Candid iPhone 13 Snapshot (Krea2 Turbo Seed 99 @ 1008x1344)
-Comparison featuring full-body framing with natural skin pores, defined facial contours, individual hair separation, and bright shadow detail reconstruction.
+### Sample 2: Cyberpunk Techwear Candid Snapshot (Krea2 Turbo Seed 105 @ 1008x1344)
+Comparison featuring full-body framing with natural skin textures, defined facial contours, fabric micro-details on the cyberpunk jacket, individual hair separation, and bright shadow detail reconstruction.
 
 <div align="center">
   <img src="assets/dlss5_slider_candid_animated.webp" alt="DLSS 5 Candid Visual Comparison Split Slider" width="850">

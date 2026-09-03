@@ -12,7 +12,7 @@
 Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neural Enhancer Enabled** (`DLAA 1.0x`, `NR Style: Default`, `Intensity: 1.0`, `Local Tone: 1.0`, `Structure: 1.0`, `Skin: 1.0`).
 
 <div align="center">
-  <img src="assets/dlss5_split_comparison.png" alt="DLSS 5 Visual Comparison Split Slider" width="850">
+  <img src="assets/dlss5_slider_animated.webp" alt="DLSS 5 Visual Comparison Split Slider" width="850">
 </div>
 
 *Notice the enhanced high-frequency structural clarity, sharper eye and skin textures, refined hair strands, and crisp neon light reflections without halos or over-sharpening artifacts.*
@@ -33,7 +33,7 @@ Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neura
 Comparison featuring full-body framing with natural skin pores, defined facial contours, individual hair separation, and bright shadow detail reconstruction.
 
 <div align="center">
-  <img src="assets/dlss5_split_comparison_candid.png" alt="DLSS 5 Candid Visual Comparison Split Slider" width="850">
+  <img src="assets/dlss5_slider_candid_animated.webp" alt="DLSS 5 Candid Visual Comparison Split Slider" width="850">
 </div>
 
 *Notice the realistic skin pore retention, distinct hair strand separation, enhanced edge resolution, and shadow micro-contrast.*

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLSS 5 Interactive Split Comparison Slider</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        body {
+            background: #0f1115;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        p.subtitle {
+            font-size: 14px;
+            color: #888888;
+            margin-bottom: 24px;
+        }
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 1008 / 1344;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+            touch-action: none;
+            cursor: ew-resize;
+        }
+        .img-before, .img-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        .img-before {
+            background-image: url('krea2_seed99_disabled.png');
+        }
+        .img-after {
+            background-image: url('krea2_seed99_enabled.png');
+            clip-path: inset(0 0 0 50%);
+        }
+        .slider-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: #76B900;
+            transform: translateX(-50%);
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(118, 185, 0, 0.6);
+        }
+        .slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 56px;
+            height: 56px;
+            background: #76B900;
+            border: 3px solid #1a1a1a;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+        .slider-handle svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+        }
+        .badge {
+            position: absolute;
+            bottom: 24px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 6px;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+        }
+        .badge-off {
+            left: 24px;
+            background: rgba(15, 15, 15, 0.85);
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .badge-on {
+            right: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #0a0a0a;
+            border-bottom: 4px solid #76B900;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>NVIDIA DLSS 5 Neural Enhancer</h1>
+    <p class="subtitle">Drag the interactive slider left or right to inspect real-time reconstruction improvements</p>
+
+    <div class="slider-container" id="slider">
+        <div class="img-before"></div>
+        <div class="img-after" id="after"></div>
+        <div class="slider-line" id="line"></div>
+        <div class="slider-handle" id="handle">
+            <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l-7-7 7-7zm8 0v14l7-7-7-7z"/>
+            </svg>
+        </div>
+        <div class="badge badge-off">DLSS 5 Off</div>
+        <div class="badge badge-on">DLSS 5 On</div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const after = document.getElementById('after');
+        const line = document.getElementById('line');
+        const handle = document.getElementById('handle');
+
+        let isDragging = false;
+
+        function setSliderPos(x) {
+            const rect = slider.getBoundingClientRect();
+            let pos = (x - rect.left) / rect.width;
+            pos = Math.max(0.01, Math.min(0.99, pos));
+            const percentage = pos * 100;
+            after.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+            line.style.left = `${percentage}%`;
+            handle.style.left = `${percentage}%`;
+        }
+
+        slider.addEventListener('pointerdown', (e) => {
+            isDragging = true;
+            slider.setPointerCapture(e.pointerId);
+            setSliderPos(e.clientX);
+        });
+
+        slider.addEventListener('pointermove', (e) => {
+            if (isDragging) {
+                setSliderPos(e.clientX);
+            }
+        });
+
+        slider.addEventListener('pointerup', (e) => {
+            isDragging = false;
+            try { slider.releasePointerCapture(e.pointerId); } catch(err) {}
+        });
+
+        slider.addEventListener('pointercancel', () => {
+            isDragging = false;
+        });
+    </script>
+</body>
+</html>

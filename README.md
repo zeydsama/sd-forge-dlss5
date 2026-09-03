@@ -6,6 +6,29 @@
 
 ---
 
+## 🖼️ Visual Comparison Showcase
+
+### Before / After Split Slider (Krea2 Turbo Seed 99 @ 1008x1344)
+Comparison between raw diffusion output (**DLSS 5 Disabled**) and **DLSS 5 Neural Enhancer Enabled** (`DLAA 1.0x`, `NR Style: Default`, `Intensity: 1.0`, `Local Tone: 1.0`, `Structure: 1.0`, `Skin: 1.0`).
+
+<div align="center">
+  <img src="assets/dlss5_split_comparison.png" alt="DLSS 5 Visual Comparison Split Slider" width="850">
+</div>
+
+*Notice the enhanced high-frequency structural clarity, sharper eye and skin textures, refined hair strands, and crisp neon light reflections without halos or over-sharpening artifacts.*
+
+<details>
+<summary><b>🔍 View Full Side-by-Side Comparison</b></summary>
+<br>
+
+<div align="center">
+  <img src="assets/dlss5_side_by_side.png" alt="DLSS 5 Side by Side Full Comparison" width="1000">
+</div>
+
+</details>
+
+---
+
 ## ✨ Features
 
 - **Integrated Accordion UI**: Seamlessly integrated into `txt2img` and `img2img` generation tabs alongside Forge's built-in integrated accordions (Torch Compile, ControlNet, PiD).

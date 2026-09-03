@@ -3,12 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# ReShade and runtime generated logs / configs / DLL binaries (auto-downloaded via install.py)
-bin/runtime/*.dll
+# ReShade and runtime generated logs / configs / heavy vendor DLLs (auto-downloaded via install.py)
 bin/runtime/*.log
 bin/runtime/*.cfg
 bin/runtime/*.ini
 bin/runtime/*.zip
+bin/runtime/nvngx_dlss*.dll
+bin/runtime/sl.*.dll
 
 # Git and OS
 .DS_Store

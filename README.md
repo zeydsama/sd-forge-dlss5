@@ -79,7 +79,10 @@ Comparison featuring full-body framing with natural skin textures, defined facia
    ```bash
    git clone https://github.com/zeydsama/sd-forge-dlss5.git extensions/sd-forge-dlss5
    ```
-3. Restart Forge. The installer (`install.py`) will verify dependencies (`opencv-python-headless`, `av`) and ensure the required D3D12 worker binaries are present in `bin/runtime/`.
+3. Restart Forge. The extension installer (`install.py`) automatically:
+   - Verifies Python dependencies (`opencv-python-headless`, `av`).
+   - Auto-downloads the NVIDIA DLSS / Streamline runtime package (`nvngx_dlss.dll`, `nvngx_dlssnr.dll`, `sl.*.dll`) into `bin/runtime/`.
+   - Bundles the native D3D12 worker host (`nvngx.dll`, `dxgi.dll`, `renodx-dlss5.addon64`) directly in the repository so no manual setup is needed.
 
 ---
 
